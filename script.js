@@ -11,6 +11,18 @@ let loadLessons = () => {
 }
 
 
+let manegeSpinner = (status) => {
+    if (status === true) {
+        document.getElementById("spinner").classList.remove("hidden")
+        document.getElementById("cart-container").classList.add("hidden")
+    }
+    else {
+        document.getElementById("cart-container").classList.remove("hidden")
+        document.getElementById("spinner").classList.add("hidden")
+    }
+}
+
+
 let removeActive = () => {
     let lessonsBtn = document.querySelectorAll(".lessons-btn")
 
@@ -21,6 +33,8 @@ let removeActive = () => {
 
 
 let loadLevelWord = (id) => {
+
+    manegeSpinner(true);
 
     fetch(`https://openapi.programming-hero.com/api/level/${id}`)
         .then(res => res.json())
@@ -85,6 +99,7 @@ let displayLevelWord = (words) => {
                     <h1 class="mt-4 text-3xl font-bold text-center">একটি Lesson Select করুন।</h1>
                 </div>
         `
+        manegeSpinner(false);
         return;
     }
 
@@ -111,6 +126,9 @@ let displayLevelWord = (words) => {
 
         cartContainer.append(div);
     })
+
+    manegeSpinner(false);
+
 }
 
 
