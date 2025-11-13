@@ -10,6 +10,12 @@ let loadLessons = () => {
         })
 }
 
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 
 let manegeSpinner = (status) => {
     if (status === true) {
@@ -117,7 +123,7 @@ let displayLevelWord = (words) => {
                             <i class="fa-solid fa-circle-info"></i>
                         </div>
 
-                        <div class="h-14 w-14 bg-[#1a91ff1a] flex justify-center items-center rounded-lg mr-5 cursor-pointer hover:bg-[#0f579b1a] hover:transition duration-300">
+                        <div onclick="pronounceWord('${word.word}')" class="h-14 w-14 bg-[#1a91ff1a] flex justify-center items-center rounded-lg mr-5 cursor-pointer hover:bg-[#0f579b1a] hover:transition duration-300">
                             <i class="fa-solid fa-volume-high"></i>
                         </div>
                     </div>
