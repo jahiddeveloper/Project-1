@@ -3,3 +3,8 @@
 .font {
   font-family: "Poppins", sans-serif;
 }
+
+.active {
+  background-color: #422ad5;
+  color: white;
+}

@@ -11,12 +11,25 @@ let loadLessons = () => {
 }
 
 
+let removeActive = () => {
+    let lessonsBtn = document.querySelectorAll(".lessons-btn")
+    
+    lessonsBtn.forEach((btn) => {
+        btn.classList.remove("active");
+    }) 
+}
+
+
 let loadLevelWord = (id) => {
 
     fetch(`https://openapi.programming-hero.com/api/level/${id}`)
         .then(res => res.json())
         .then(json => {
-            // console.log(json.data)
+
+            removeActive()
+            let clickBtn = document.getElementById(`lesson-btn-${id}`)
+            // console.log(clickBtn)
+            clickBtn.classList.add("active");
             displayLevelWord(json.data)
         })
 }
@@ -72,7 +85,7 @@ let displayLessons = (lessons) => {
         let btn = document.createElement("button");
         btn.innerHTML = `
         
-                    <button onclick="loadLevelWord(${lesson.level_no})" class="btn btn-outline btn-primary mr-4"><i
+                    <button id="lesson-btn-${lesson.level_no}" onclick="loadLevelWord(${lesson.level_no})" class="btn btn-outline btn-primary mr-4 lessons-btn"><i
                     class="fa-solid fa-book-open"></i>Lesson - ${lesson.level_no}</button>
 
         `
