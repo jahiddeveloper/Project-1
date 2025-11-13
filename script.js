@@ -13,10 +13,10 @@ let loadLessons = () => {
 
 let removeActive = () => {
     let lessonsBtn = document.querySelectorAll(".lessons-btn")
-    
+
     lessonsBtn.forEach((btn) => {
         btn.classList.remove("active");
-    }) 
+    })
 }
 
 
@@ -33,6 +33,44 @@ let loadLevelWord = (id) => {
             displayLevelWord(json.data)
         })
 }
+
+
+let loadWordDetail = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/word/${id}`)
+        .then(res => res.json())
+        .then(json => {
+            // console.log(json.data)
+            displayWordDetail(json.data);
+        })
+}
+
+let displayWordDetail = (details) => {
+
+    let detailsContainer = document.getElementById("details-container");
+
+    detailsContainer.innerHTML = `
+    
+    <h1 class="text-xl font-bold">${details.word} (<i class="fa-solid fa-microphone-lines"></i> : ${details.pronunciation})</h1>
+                    <h3 class="text-lg font-semibold mt-6">Meaning</h3>
+                    <h3 class="text-lg mt-2">${details.meaning}</h3>
+
+                    <h3 class="text-lg font-semibold mt-6">Example</h3>
+                    <p class="text-lg mt-2">${details.sentence}</p>
+
+                    <h3 class="text-lg font-semibold mt-6">সমার্থক শব্দ গুলো</h3>
+                    <div class="flex gap-3 mt-2">
+                        <p class="px-5 py-3 bg-[#edf7ff] rounded-lg">${details.synonyms[0]}</p>
+                        <p class="px-5 py-3 bg-[#edf7ff] rounded-lg">${details.synonyms[1]}</p>
+                        <p class="px-5 py-3 bg-[#edf7ff] rounded-lg">${details.synonyms[2]}</p>
+                    </div>
+
+                    <button class="btn btn-outline btn-primary mt-10">Complete Learning</button>
+
+    `
+    document.getElementById("my_modal_5").showModal();
+
+}
+
 
 let displayLevelWord = (words) => {
 
@@ -60,7 +98,7 @@ let displayLevelWord = (words) => {
                     <h2 class="text-2xl text-center mt-6 font-semibold">"${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "pronunciation পাওয়া যায়নি"}"</h2>
 
                     <div class="flex justify-between mt-10 items-center">
-                        <div class="h-14 w-14 bg-[#1a91ff1a] flex justify-center items-center rounded-lg ml-5 cursor-pointer hover:bg-[#0f579b1a] hover:transition duration-300">
+                        <div onclick="loadWordDetail(${word.id})" class="h-14 w-14 bg-[#1a91ff1a] flex justify-center items-center rounded-lg ml-5 cursor-pointer hover:bg-[#0f579b1a] hover:transition duration-300">
                             <i class="fa-solid fa-circle-info"></i>
                         </div>
 
